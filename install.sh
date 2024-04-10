@@ -20,6 +20,9 @@ case $ARCH in
     x86_64)
         ASSET_ARCH="amd64"
         ;;
+    aarch64)
+        ASSET_ARCH="arm64"
+        ;;
     arm64)
         ASSET_ARCH="arm64"
         ;;
