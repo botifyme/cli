@@ -32,11 +32,13 @@ case $ARCH in
         ;;
 esac
 
+KERNEL_NAME=$(uname -s | tr '[:upper:]' '[:lower:]')
+
 # Fetch the latest release
 RELEASE_INFO=$(curl -s https://api.github.com/repos/$USER/$REPO/releases/latest)
 
 # Extract the download URL for the right asset
-DOWNLOAD_URL=$(echo "$RELEASE_INFO" | grep "browser_download_url.*$ASSET_ARCH" | cut -d '"' -f 4 | head -n 1)
+DOWNLOAD_URL=$(echo "$RELEASE_INFO" | grep "browser_download_url.*$ASSET_ARCH" | grep $KERNEL_NAME | cut -d '"' -f 4 | head -n 1)
 
 if [ -z "$DOWNLOAD_URL" ]; then
     echo "Failed to find a download URL for architecture: $ASSET_ARCH"
