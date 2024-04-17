@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Install the BotifyMe command line tool
 
 BOTIFYME_INSTALL_DIR="$HOME/.botifyme"
@@ -41,13 +42,18 @@ fi
 
 # Download the asset
 if command -v curl > /dev/null; then
-    curl -L "$DOWNLOAD_URL" -o "$BOTIFYME_BIN_DIR/botifyme$FILE_EXT" --silent
+    curl -L "$DOWNLOAD_URL" -o "$BOTIFYME_BIN_DIR/botifyme$FILE_EXT" --silent --show-error
 elif command -v wget > /dev/null; then
-    wget "$DOWNLOAD_URL" -O "$BOTIFYME_BIN_DIR/botifyme$FILE_EXT" -q
+    wget "$DOWNLOAD_URL" -O "$BOTIFYME_BIN_DIR/botifyme$FILE_EXT" -q --show-progress
 else
     echo "Error: 'curl' or 'wget' is required but not installed."
     exit 1
 fi
 
 chmod +x "$BOTIFYME_BIN_DIR/botifyme$FILE_EXT"
+
+echo "✓ BotifyMe installed successfully."
+echo "Please add $BOTIFYME_BIN_DIR to your PATH to use it from anywhere."
+echo "For example, you can add the line below to your .bashrc or .bash_profile:"
+echo 'export PATH=$PATH:'"$BOTIFYME_BIN_DIR"
 
